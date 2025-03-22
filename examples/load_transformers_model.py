@@ -26,36 +26,34 @@ SAVE_DIR = Path("./tiny-bert")
 def download_and_upload_model():
     """Download a model from Hugging Face and upload it to IPFS."""
     global CID
-    
+
     print(f"Downloading {MODEL_NAME} from Hugging Face...")
-    
+
     # First, import transformers to make sure from_ipfs is applied
     import transformers
-    
+
     # Then load the model
     model = transformers.AutoModel.from_pretrained(MODEL_NAME)
     tokenizer = transformers.AutoTokenizer.from_pretrained(MODEL_NAME)
-    
+
     # Save the model locally
     os.makedirs(SAVE_DIR, exist_ok=True)
     print(f"Saving model to {SAVE_DIR}...")
     model.save_pretrained(SAVE_DIR)
     tokenizer.save_pretrained(SAVE_DIR)
-    
+
     # Upload to IPFS
     try:
         print("Uploading to IPFS...")
         result = subprocess.run(
-            ["w3", "up", str(SAVE_DIR)],
-            check=True,
-            capture_output=True,
-            text=True
+            ["w3", "up", str(SAVE_DIR)], check=True, capture_output=True, text=True
         )
-        
+
         # Extract CID from output
         import re
+
         output = result.stdout
-        match = re.search(r'(Qm[a-zA-Z0-9]{44}|bafy[a-zA-Z0-9]{44})', output)
+        match = re.search(r"(Qm[a-zA-Z0-9]{44}|bafy[a-zA-Z0-9]{44})", output)
         if match:
             CID = match.group(0)
             print(f"Uploaded to IPFS: ipfs://{CID}")
@@ -73,22 +71,22 @@ def load_from_ipfs():
     if not CID:
         print("No CID available. Run download_and_upload_model() first or set CID manually.")
         return
-    
+
     print(f"Loading model from IPFS: ipfs://{CID}")
-    
+
     # Import transformers (from_ipfs will be applied automatically)
     import transformers
-    
+
     # Load the model from IPFS
     model = transformers.AutoModel.from_pretrained(f"ipfs://{CID}")
     tokenizer = transformers.AutoTokenizer.from_pretrained(f"ipfs://{CID}")
-    
+
     print("Model loaded successfully!")
-    
+
     # Test the model with a simple input
     inputs = tokenizer("Hello, my dog is cute", return_tensors="pt")
     outputs = model(**inputs)
-    
+
     print(f"Model output shape: {outputs.last_hidden_state.shape}")
     print("Model loaded and working correctly!")
 
@@ -108,6 +106,6 @@ if __name__ == "__main__":
             CID = "QmExampleCID"  # This is just a dummy CID for demonstration
         else:
             download_and_upload_model()
-    
+
     # Load the model from IPFS
-    load_from_ipfs() 
+    load_from_ipfs()

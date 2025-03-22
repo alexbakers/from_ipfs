@@ -4,4 +4,4 @@ from from_ipfs.cli import main
 
 if __name__ == "__main__":
     # Test with config command
-    main(["config"]) 
+    main(["config"])

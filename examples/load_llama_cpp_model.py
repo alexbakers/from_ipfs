@@ -27,14 +27,14 @@ MODEL_PATH = SAVE_DIR / MODEL_FILENAME
 def download_and_upload_model():
     """Download a model and upload it to IPFS."""
     global CID
-    
+
     # Create the directory
     os.makedirs(SAVE_DIR, exist_ok=True)
-    
+
     # Download the model if it doesn't exist
     if not MODEL_PATH.exists():
         print(f"Downloading {MODEL_FILENAME} from {MODEL_URL}...")
-        
+
         try:
             # Using wget for convenience
             subprocess.run(["curl", "-L", MODEL_URL, "-o", str(MODEL_PATH)], check=True)
@@ -47,21 +47,19 @@ def download_and_upload_model():
             return
     else:
         print(f"Model already exists at {MODEL_PATH}")
-    
+
     # Upload to IPFS
     try:
         print("Uploading to IPFS...")
         result = subprocess.run(
-            ["w3", "up", str(SAVE_DIR)],
-            check=True,
-            capture_output=True,
-            text=True
+            ["w3", "up", str(SAVE_DIR)], check=True, capture_output=True, text=True
         )
-        
+
         # Extract CID from output
         import re
+
         output = result.stdout
-        match = re.search(r'(Qm[a-zA-Z0-9]{44}|bafy[a-zA-Z0-9]{44})', output)
+        match = re.search(r"(Qm[a-zA-Z0-9]{44}|bafy[a-zA-Z0-9]{44})", output)
         if match:
             CID = match.group(0)
             print(f"Uploaded to IPFS: ipfs://{CID}")
@@ -79,29 +77,25 @@ def load_from_ipfs():
     if not CID:
         print("No CID available. Run download_and_upload_model() first or set CID manually.")
         return
-    
+
     print(f"Loading model from IPFS: ipfs://{CID}")
-    
+
     try:
         # Import llama_cpp (from_ipfs will be applied automatically)
         from llama_cpp import Llama
-        
+
         # Load the model from IPFS
-        llm = Llama.from_pretrained(
-            repo_id=f"ipfs://{CID}",
-            filename=MODEL_FILENAME,
-            verbose=False
-        )
-        
+        llm = Llama.from_pretrained(repo_id=f"ipfs://{CID}", filename=MODEL_FILENAME, verbose=False)
+
         print("Model loaded successfully!")
-        
+
         # Test the model with a simple prompt
         response = llm("Q: What is the capital of France? A:", max_tokens=32)
         print("\nTest prompt: What is the capital of France?")
         print(f"Response: {response['choices'][0]['text']}")
-        
+
         print("\nModel loaded and working correctly!")
-        
+
     except ImportError:
         print("Failed to import llama_cpp. Make sure it's installed:")
         print("pip install llama-cpp-python")
@@ -124,6 +118,6 @@ if __name__ == "__main__":
             CID = "QmExampleCID"  # This is just a dummy CID for demonstration
         else:
             download_and_upload_model()
-    
+
     # Load the model from IPFS
-    load_from_ipfs() 
+    load_from_ipfs()

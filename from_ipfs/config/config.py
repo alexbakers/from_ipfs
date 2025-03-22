@@ -8,10 +8,12 @@ import sys
 from from_ipfs import __version__, CACHE_DIR, GATEWAYS
 from from_ipfs.utils import show_config
 
+
 def main():
     """Display the from_ipfs configuration."""
     show_config()
     return 0
 
+
 if __name__ == "__main__":
-    sys.exit(main()) 
+    sys.exit(main())

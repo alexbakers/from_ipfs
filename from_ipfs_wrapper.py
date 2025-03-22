@@ -15,6 +15,11 @@ for gateway in from_ipfs.GATEWAYS:
 
 # Show environment variables
 import os
+
 print("\nEnvironment variables:")
-print(f"  - FROM_IPFS_CACHE: {'Set to ' + os.environ.get('FROM_IPFS_CACHE') if 'FROM_IPFS_CACHE' in os.environ else 'Not set (using default)'}")
-print(f"  - FROM_IPFS_GATEWAYS: {'Set to ' + os.environ.get('FROM_IPFS_GATEWAYS') if 'FROM_IPFS_GATEWAYS' in os.environ else 'Not set (using default)'}") 
+print(
+    f"  - FROM_IPFS_CACHE: {'Set to ' + os.environ.get('FROM_IPFS_CACHE') if 'FROM_IPFS_CACHE' in os.environ else 'Not set (using default)'}"
+)
+print(
+    f"  - FROM_IPFS_GATEWAYS: {'Set to ' + os.environ.get('FROM_IPFS_GATEWAYS') if 'FROM_IPFS_GATEWAYS' in os.environ else 'Not set (using default)'}"
+)

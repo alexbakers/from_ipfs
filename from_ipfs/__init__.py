@@ -45,6 +45,7 @@ from .utils import (
 # Import patching module
 from .patcher import patch_class_with_ipfs_support
 
+
 def patch_transformers():
     """
     Patch the transformers library to support IPFS URIs.
@@ -52,13 +53,14 @@ def patch_transformers():
     try:
         import transformers
         from .transformers_patch import apply_patch
-        
+
         apply_patch()
         print("Patched transformers with IPFS support")
         return True
     except ImportError:
         print("transformers not installed, skipping patching")
         return False
+
 
 def patch_llama_cpp():
     """
@@ -67,7 +69,7 @@ def patch_llama_cpp():
     try:
         import llama_cpp
         from .llama_cpp_patch import apply_patch
-        
+
         apply_patch()
         print("Patched llama-cpp-python with IPFS support")
         return True
@@ -75,22 +77,24 @@ def patch_llama_cpp():
         print("llama-cpp-python not installed, skipping patching")
         return False
 
+
 def patch_all():
     """Patch all supported libraries with IPFS functionality."""
     transformers_patched = patch_transformers()
     llama_cpp_patched = patch_llama_cpp()
     return transformers_patched, llama_cpp_patched
 
+
 # Run the patching automatically on import
 patch_all()
 
 __all__ = [
-    'is_ipfs_uri',
-    'download_from_ipfs',
-    'patch_all',
-    'patch_transformers',
-    'patch_llama_cpp',
-    'list_cached_models',
-    'clear_cache',
-    'show_config'
-] 
+    "is_ipfs_uri",
+    "download_from_ipfs",
+    "patch_all",
+    "patch_transformers",
+    "patch_llama_cpp",
+    "list_cached_models",
+    "clear_cache",
+    "show_config",
+]
