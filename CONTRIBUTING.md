@@ -8,7 +8,7 @@ Thank you for your interest in contributing to `from_ipfs`! This document provid
 
 ```bash
 git clone https://github.com/alexbakers/from_ipfs.git
-cd from-ipfs
+cd from_ipfs
 ```
 
 2. Create a virtual environment and install development dependencies:

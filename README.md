@@ -317,7 +317,7 @@ If you encounter issues with the `from_ipfs` command not being found or not reco
 
 4. Check if the entry points are properly registered:
    ```bash
-   pip show from-ipfs
+   pip show from_ipfs
    ```
 
 ### IPFS Gateway Issues

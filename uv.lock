@@ -251,7 +251,7 @@ wheels = [
 ]
 
 [[package]]
-name = "from-ipfs"
+name = "from_ipfs"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
