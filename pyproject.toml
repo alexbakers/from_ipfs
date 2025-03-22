@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "from-ipfs"
+name = "from_ipfs"
 version = "0.1.0"
 description = "Use IPFS URIs with Hugging Face transformers and llama.cpp Python bindings"
 readme = "README.md"
