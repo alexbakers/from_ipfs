@@ -10,16 +10,17 @@ This is useful for testing that the from_ipfs package handles URIs correctly
 without requiring an actual IPFS connection.
 """
 
+import json
 import os
 import shutil
 import tempfile
 from pathlib import Path
-import json
+
+from transformers import AutoModel, AutoTokenizer
 
 # Import from_ipfs to ensure patching is applied
 import from_ipfs
-from from_ipfs.utils import is_ipfs_uri, download_from_ipfs
-from transformers import AutoModel, AutoTokenizer
+from from_ipfs.utils import download_from_ipfs, is_ipfs_uri
 
 
 def create_mock_model_in_cache():

@@ -1,16 +1,17 @@
-import sys
 import importlib
-import unittest
-import os
 import inspect
+import os
+import sys
 import tempfile
+import unittest
 
-# First import from_ipfs to ensure patches are applied
-import from_ipfs
+import llama_cpp
 
 # Then import the libraries we want to test
 import transformers
-import llama_cpp
+
+# First import from_ipfs to ensure patches are applied
+import from_ipfs
 
 
 class TestIPFSIntegration(unittest.TestCase):

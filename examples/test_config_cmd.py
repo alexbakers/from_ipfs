@@ -5,9 +5,9 @@ This script specifically tests the newly added config command
 to ensure it displays the correct configuration information.
 """
 
+import os
 import subprocess
 import sys
-import os
 
 
 def run_config_command():

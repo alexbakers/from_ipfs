@@ -4,10 +4,11 @@ Direct entry point for the from_ipfs CLI.
 This is a workaround for entry_points that don't always work correctly with subcommands.
 """
 
-import sys
 import argparse
+import sys
+
 from from_ipfs import __version__
-from from_ipfs.utils import download_from_ipfs, list_cached_models, clear_cache, show_config
+from from_ipfs.utils import clear_cache, download_from_ipfs, list_cached_models, show_config
 
 
 def create_parser():

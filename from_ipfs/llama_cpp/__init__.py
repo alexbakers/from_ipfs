@@ -2,14 +2,13 @@
 Integration with llama-cpp-python.
 """
 
+import functools
 import inspect
 import sys
 from types import ModuleType
 from typing import Any, Dict, List, Set, Type
-import functools
 
 from ..patcher import patch_class_with_ipfs_support
-
 
 # Set to track classes we've already patched
 _patched_classes: Set[Type[Any]] = set()
@@ -74,8 +73,9 @@ def patch_llama_cpp_classes() -> None:
         if hasattr(Llama, "from_pretrained") and Llama not in _patched_classes:
             try:
                 # Import the necessary utilities
-                from ..utils import download_from_ipfs, is_ipfs_uri
                 import functools
+
+                from ..utils import download_from_ipfs, is_ipfs_uri
 
                 # Store original method
                 original_from_pretrained = Llama.from_pretrained

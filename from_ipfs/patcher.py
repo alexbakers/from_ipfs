@@ -3,13 +3,13 @@ Core patching utilities for from_ipfs.
 """
 
 import functools
-import os
 import inspect
+import os
 import sys
 from types import ModuleType
 from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union, cast
 
-from .utils import is_ipfs_uri, download_from_ipfs, push_to_ipfs
+from .utils import download_from_ipfs, is_ipfs_uri, push_to_ipfs
 
 T = TypeVar("T")
 
@@ -78,8 +78,8 @@ def patch_push_to_hub(cls: Type[Any], original_method: Callable) -> Callable:
         """
         # If local_dir is not specified, create a temp directory and save the model there
         if local_dir is None:
-            import tempfile
             import os
+            import tempfile
 
             # Create a temp directory
             temp_dir = tempfile.mkdtemp()

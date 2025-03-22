@@ -11,8 +11,8 @@ For this example, we'll use a small model called TinyBERT,
 which is a distilled version of BERT that's much smaller but still useful.
 """
 
-import subprocess
 import os
+import subprocess
 from pathlib import Path
 
 # Define the model name and IPFS CID (example - will be replaced with real CID later)

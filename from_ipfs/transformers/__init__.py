@@ -2,11 +2,11 @@
 This module patches transformers library to support IPFS URIs.
 """
 
-import sys
+import functools
 import importlib
 import inspect
-import functools
-from typing import Set, Any, Callable, Dict, List, Optional, Tuple, Type, Union
+import sys
+from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
 
 # Set of classes that have been patched
 _patched_classes: Set[Type] = set()
@@ -41,8 +41,9 @@ def patch_transformers_classes() -> None:
             if hasattr(cls, "from_pretrained") and cls not in _patched_classes:
                 try:
                     # Import these directly to ensure they're accessible in the closure
-                    from ..utils import download_from_ipfs, is_ipfs_uri
                     import functools
+
+                    from ..utils import download_from_ipfs, is_ipfs_uri
 
                     # Store original method
                     original_from_pretrained = cls.from_pretrained

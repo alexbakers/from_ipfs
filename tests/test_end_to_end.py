@@ -1,9 +1,9 @@
+import importlib
+import inspect
 import os
+import sys
 import tempfile
 import unittest
-import inspect
-import importlib
-import sys
 from unittest.mock import patch
 
 # Import from_ipfs first to apply patches

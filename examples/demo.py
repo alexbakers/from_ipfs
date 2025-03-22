@@ -62,7 +62,7 @@ def test_llama_cpp():
 def test_ipfs():
     print("\n=== Testing IPFS Functionality ===")
     try:
-        from from_ipfs.utils import is_ipfs_uri, extract_cid_from_uri
+        from from_ipfs.utils import extract_cid_from_uri, is_ipfs_uri
 
         # Test URI validation
         test_uri = "ipfs://QmTest123"

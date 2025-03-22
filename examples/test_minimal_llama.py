@@ -8,9 +8,10 @@ This script demonstrates the basic functionality of from_ipfs with llama-cpp-pyt
 This example requires you to have a GGUF model file locally.
 """
 
-from llama_cpp import Llama
 import os
 from pathlib import Path
+
+from llama_cpp import Llama
 
 
 def main():

@@ -56,9 +56,8 @@ def apply_patch():
 
             # If not an IPFS URI, try to load from HuggingFace Hub
             try:
-                from huggingface_hub import hf_hub_download
+                from huggingface_hub import HfFileSystem, hf_hub_download
                 from huggingface_hub.utils import validate_repo_id
-                from huggingface_hub import HfFileSystem
 
                 fs = HfFileSystem()
                 files = fs.ls(pretrained_model_name_or_path, detail=False)

@@ -3,8 +3,8 @@
 Debug script for running the config command directly.
 """
 
-import sys
 import os
+import sys
 
 # Add debug output
 print(f"Debug: Script path: {__file__}")

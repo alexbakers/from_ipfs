@@ -10,9 +10,9 @@ Run this after running some of the other example scripts
 that populate the cache with models.
 """
 
+import os
 import subprocess
 import sys
-import os
 
 
 def run_command(cmd, description):

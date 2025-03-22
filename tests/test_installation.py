@@ -5,9 +5,9 @@ This script doesn't actually download any models, but just verifies that
 the patches have been applied to transformers and llama_cpp classes.
 """
 
-import sys
 import importlib.util
 import inspect
+import sys
 
 
 def check_module_installed(module_name):
@@ -21,6 +21,7 @@ def check_transformers_patching():
     """Check if transformers is patched without requiring PyTorch."""
     try:
         import transformers
+
         import from_ipfs.transformers
 
         # Check if our patch function exists
@@ -53,6 +54,7 @@ def check_llama_cpp_patching():
     """Check if llama_cpp is patched."""
     try:
         import llama_cpp
+
         import from_ipfs.llama_cpp
 
         if hasattr(from_ipfs.llama_cpp, "patch_llama_cpp_classes"):

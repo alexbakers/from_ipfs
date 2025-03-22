@@ -9,8 +9,8 @@ This script demonstrates the basic functionality of from_ipfs by:
 This is the simplest possible example to test that the package works correctly.
 """
 
-from transformers import AutoModel, AutoTokenizer
 import torch
+from transformers import AutoModel, AutoTokenizer
 
 
 def main():

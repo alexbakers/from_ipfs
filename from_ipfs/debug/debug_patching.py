@@ -2,8 +2,8 @@
 Debug script to test the patching mechanism directly.
 """
 
-import sys
 import inspect
+import sys
 
 
 def main():
@@ -24,7 +24,7 @@ def main():
 
     # Import and call the patching function directly
     print("\nImporting and calling patch_all_transformers_classes directly...")
-    from from_ipfs.transformers import patch_all_transformers_classes, _patched_classes
+    from from_ipfs.transformers import _patched_classes, patch_all_transformers_classes
 
     patch_all_transformers_classes()
 

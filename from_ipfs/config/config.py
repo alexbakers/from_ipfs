@@ -5,7 +5,8 @@ This is useful when the main CLI entry point doesn't recognize the 'config' comm
 """
 
 import sys
-from from_ipfs import __version__, CACHE_DIR, GATEWAYS
+
+from from_ipfs import CACHE_DIR, GATEWAYS, __version__
 from from_ipfs.utils import show_config
 
 
