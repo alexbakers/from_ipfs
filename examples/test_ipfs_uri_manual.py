@@ -12,9 +12,6 @@ without requiring an actual IPFS connection.
 
 import json
 import os
-import shutil
-import tempfile
-from pathlib import Path
 
 from transformers import AutoModel, AutoTokenizer
 
@@ -114,7 +111,7 @@ def test_ipfs_uri_handling():
 
     print("\nTrying to load model from IPFS URI...")
     try:
-        model = AutoModel.from_pretrained(ipfs_uri)
+        AutoModel.from_pretrained(ipfs_uri)
         print("Success! Model loaded successfully")
     except Exception as e:
         print(f"Error loading model: {e}")

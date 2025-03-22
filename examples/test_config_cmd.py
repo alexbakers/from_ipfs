@@ -7,7 +7,6 @@ to ensure it displays the correct configuration information.
 
 import os
 import subprocess
-import sys
 
 
 def run_config_command():

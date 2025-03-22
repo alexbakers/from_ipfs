@@ -4,10 +4,7 @@ from_ipfs - Use IPFS URIs with Hugging Face transformers and llama-cpp-python.
 This module patches transformers and llama-cpp-python libraries to add IPFS support.
 """
 
-import importlib.util
 import os
-import sys
-from typing import Any, Dict, List, Optional, Union
 
 __version__ = "0.1.0"
 
@@ -33,11 +30,8 @@ else:
 # Create cache directory if it doesn't exist
 os.makedirs(CACHE_DIR, exist_ok=True)
 
-# Import patching module
-from .patcher import patch_class_with_ipfs_support
-
 # Import other modules to make them available
-from .utils import (
+from .utils import (  # noqa: E402
     clear_cache,
     download_from_ipfs,
     is_ipfs_uri,
@@ -51,8 +45,6 @@ def patch_transformers():
     Patch the transformers library to support IPFS URIs.
     """
     try:
-        import transformers
-
         from .transformers_patch import apply_patch
 
         apply_patch()
@@ -68,8 +60,6 @@ def patch_llama_cpp():
     Patch the llama_cpp library to support IPFS URIs.
     """
     try:
-        import llama_cpp
-
         from .llama_cpp_patch import apply_patch
 
         apply_patch()

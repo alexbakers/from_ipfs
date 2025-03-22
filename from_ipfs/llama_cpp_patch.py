@@ -4,7 +4,6 @@ Module for patching llama-cpp-python with IPFS support.
 
 import functools
 import os
-from typing import Optional
 
 from .utils import download_from_ipfs
 
@@ -57,7 +56,6 @@ def apply_patch():
             # If not an IPFS URI, try to load from HuggingFace Hub
             try:
                 from huggingface_hub import HfFileSystem, hf_hub_download
-                from huggingface_hub.utils import validate_repo_id
 
                 fs = HfFileSystem()
                 files = fs.ls(pretrained_model_name_or_path, detail=False)
@@ -72,10 +70,10 @@ def apply_patch():
                 )
 
                 return cls(model_path=local_path, **kwargs)
-            except ImportError:
+            except ImportError as e:
                 raise ValueError(
                     "Could not load model. For HuggingFace Hub support, install huggingface_hub."
-                )
+                ) from e
 
         # Add the method to the Llama class
         llama_cpp.Llama.from_pretrained = from_pretrained

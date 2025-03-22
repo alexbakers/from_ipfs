@@ -51,16 +51,12 @@ def main():
 
     # Try to import transformers and patch it
     try:
-        import transformers
-
         print("transformers is installed, proceeding with patching")
     except ImportError:
         print("transformers not installed, skipping patching")
 
     # Try to import llama_cpp and patch it
     try:
-        import llama_cpp
-
         print("llama-cpp-python is installed, proceeding with patching")
     except ImportError:
         print("llama-cpp-python not installed, skipping patching")

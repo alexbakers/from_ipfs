@@ -6,7 +6,6 @@ the patches have been applied to transformers and llama_cpp classes.
 """
 
 import importlib.util
-import inspect
 import sys
 
 
@@ -37,7 +36,7 @@ def check_transformers_patching():
                     # Look for 'startswith' in the co_names which indicates our patch
                     # that checks if a string starts with 'ipfs://'
                     if "startswith" in func_code.co_names:
-                        print(f"✓ transformers.AutoModel is patched correctly")
+                        print("✓ transformers.AutoModel is patched correctly")
                         return True
 
             print("✗ Could not verify transformers patching")
@@ -62,7 +61,7 @@ def check_llama_cpp_patching():
 
             # Check if Llama has been patched
             if hasattr(llama_cpp, "Llama") and hasattr(llama_cpp.Llama, "from_pretrained"):
-                from_pretrained = getattr(llama_cpp.Llama, "from_pretrained")
+                from_pretrained = llama_cpp.Llama.from_pretrained
                 original_func = getattr(from_pretrained, "__func__", None)
 
                 # Look for 'startswith' in the co_names which indicates our patch
@@ -106,14 +105,11 @@ def main():
 
     print("\nChecking patching functionality:")
 
-    transformers_patched = False
-    llama_cpp_patched = False
-
     if transformers_installed:
-        transformers_patched = check_transformers_patching()
+        check_transformers_patching()
 
     if llama_cpp_installed:
-        llama_cpp_patched = check_llama_cpp_patching()
+        check_llama_cpp_patching()
 
     # Overall test result
     if not transformers_installed and not llama_cpp_installed:

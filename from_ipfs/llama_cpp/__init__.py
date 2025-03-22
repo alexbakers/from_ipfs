@@ -2,11 +2,10 @@
 Integration with llama-cpp-python.
 """
 
-import functools
 import inspect
 import sys
 from types import ModuleType
-from typing import Any, Dict, List, Set, Type
+from typing import Any, List, Set, Type
 
 from ..patcher import patch_class_with_ipfs_support
 
@@ -26,15 +25,13 @@ def find_llama_classes_with_from_pretrained(module: ModuleType) -> List[Type[Any
     """
     classes: List[Type[Any]] = []
 
-    for name, obj in inspect.getmembers(module):
+    for _name, obj in inspect.getmembers(module):
         # Only consider classes
         if not inspect.isclass(obj):
             continue
 
         # Check if the class has a from_pretrained classmethod
-        if hasattr(obj, "from_pretrained") and isinstance(
-            getattr(obj, "from_pretrained"), classmethod
-        ):
+        if hasattr(obj, "from_pretrained") and isinstance(obj.from_pretrained, classmethod):
             classes.append(obj)
 
     return classes
@@ -75,7 +72,7 @@ def patch_llama_cpp_classes() -> None:
                 # Import the necessary utilities
                 import functools
 
-                from ..utils import download_from_ipfs, is_ipfs_uri
+                from ..utils import download_from_ipfs
 
                 # Store original method
                 original_from_pretrained = Llama.from_pretrained
@@ -99,9 +96,9 @@ def patch_llama_cpp_classes() -> None:
                     )
 
                 # Replace the from_pretrained method
-                setattr(Llama, "from_pretrained", patched_llama_from_pretrained)
+                Llama.from_pretrained = patched_llama_from_pretrained
                 _patched_classes.add(Llama)
-                print(f"Directly patched Llama class with completely new method")
+                print("Directly patched Llama class with completely new method")
             except Exception as e:
                 print(f"Failed to patch Llama class: {e}")
 

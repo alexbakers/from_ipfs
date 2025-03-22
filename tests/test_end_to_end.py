@@ -1,13 +1,7 @@
-import importlib
-import inspect
-import os
-import sys
 import tempfile
 import unittest
-from unittest.mock import patch
 
 # Import from_ipfs first to apply patches
-import from_ipfs
 
 
 class TestIPFSIntegration(unittest.TestCase):
@@ -52,7 +46,7 @@ class TestIPFSIntegration(unittest.TestCase):
 
         # Check if Llama has been patched
         if hasattr(llama_cpp, "Llama") and hasattr(llama_cpp.Llama, "from_pretrained"):
-            from_pretrained = getattr(llama_cpp.Llama, "from_pretrained")
+            from_pretrained = llama_cpp.Llama.from_pretrained
             original_func = getattr(from_pretrained, "__func__", None)
 
             # Look for 'startswith' in the co_names which indicates our patch

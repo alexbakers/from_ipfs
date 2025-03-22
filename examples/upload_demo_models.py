@@ -1,8 +1,6 @@
 import os
-import shutil
 
 from huggingface_hub import snapshot_download
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 
 def download_transformers_model():

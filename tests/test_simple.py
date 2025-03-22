@@ -1,7 +1,3 @@
-import importlib
-import inspect
-import os
-import sys
 import tempfile
 import unittest
 
@@ -11,7 +7,6 @@ import llama_cpp
 import transformers
 
 # First import from_ipfs to ensure patches are applied
-import from_ipfs
 
 
 class TestIPFSIntegration(unittest.TestCase):
@@ -41,7 +36,7 @@ class TestIPFSIntegration(unittest.TestCase):
                     func_code.co_names,
                     "AutoModel.from_pretrained doesn't check for IPFS URIs",
                 )
-                print(f"Patched transformers with IPFS support")
+                print("Patched transformers with IPFS support")
                 return
 
         self.fail("Could not verify transformers patching")
@@ -50,7 +45,7 @@ class TestIPFSIntegration(unittest.TestCase):
         """Check if llama_cpp is patched to handle IPFS URIs."""
         # Check if Llama has been patched
         if hasattr(llama_cpp, "Llama") and hasattr(llama_cpp.Llama, "from_pretrained"):
-            from_pretrained = getattr(llama_cpp.Llama, "from_pretrained")
+            from_pretrained = llama_cpp.Llama.from_pretrained
             original_func = getattr(from_pretrained, "__func__", None)
 
             # Look for 'startswith' in the co_names which indicates our patch
@@ -60,14 +55,14 @@ class TestIPFSIntegration(unittest.TestCase):
                     original_func.__code__.co_names,
                     "llama_cpp.Llama.from_pretrained doesn't check for IPFS URIs",
                 )
-                print(f"Patched llama-cpp-python with IPFS support")
+                print("Patched llama-cpp-python with IPFS support")
                 return
 
         self.fail("Could not verify llama_cpp patching")
 
     def test_patch_summary(self):
         """Print a summary of the patching test."""
-        print(f"Patching test complete!")
+        print("Patching test complete!")
 
 
 if __name__ == "__main__":

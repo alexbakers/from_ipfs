@@ -5,9 +5,8 @@ Command-line interface for from_ipfs package.
 import argparse
 import os
 import sys
-from typing import List, Optional
 
-from . import CACHE_DIR, GATEWAYS, __version__
+from . import __version__
 from .utils import clear_cache, download_from_ipfs, list_cached_models, show_config
 
 
@@ -121,8 +120,6 @@ def main():
 
     # Try to import transformers and patch it
     try:
-        import transformers
-
         from from_ipfs import patch_transformers
 
         patch_transformers()
@@ -131,8 +128,6 @@ def main():
 
     # Try to import llama_cpp and patch it
     try:
-        import llama_cpp
-
         from from_ipfs import patch_llama_cpp
 
         patch_llama_cpp()
@@ -163,7 +158,7 @@ def main():
     try:
         args = parser.parse_args()
         print(f"DEBUG: Parsed arguments = {args}")
-    except SystemExit as e:
+    except SystemExit:
         # If parsing fails, check if it might be the config command
         if len(sys.argv) > 1 and "config" in sys.argv[1]:
             print("DEBUG: Parsing failed but detected 'config' in argument, running config command")

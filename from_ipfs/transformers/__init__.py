@@ -2,11 +2,9 @@
 This module patches transformers library to support IPFS URIs.
 """
 
-import functools
-import importlib
 import inspect
 import sys
-from typing import Any, Callable, Dict, List, Optional, Set, Tuple, Type, Union
+from typing import Set, Type
 
 # Set of classes that have been patched
 _patched_classes: Set[Type] = set()
@@ -43,7 +41,7 @@ def patch_transformers_classes() -> None:
                     # Import these directly to ensure they're accessible in the closure
                     import functools
 
-                    from ..utils import download_from_ipfs, is_ipfs_uri
+                    from ..utils import download_from_ipfs
 
                     # Store original method
                     original_from_pretrained = cls.from_pretrained
@@ -78,7 +76,7 @@ def patch_transformers_classes() -> None:
                         )
 
                     # Replace the from_pretrained method
-                    setattr(cls, "from_pretrained", patched_from_pretrained)
+                    cls.from_pretrained = patched_from_pretrained
                     _patched_classes.add(cls)
                     print(f"Directly patched {class_name} with completely new method")
                 except Exception as e:
@@ -100,7 +98,7 @@ def patch_transformers_classes() -> None:
             ):
 
                 # Import these directly to ensure they're accessible in the closure
-                from ..utils import download_from_ipfs, is_ipfs_uri
+                from ..utils import download_from_ipfs
 
                 # Store original method
                 original_from_pretrained = attr.from_pretrained
@@ -125,10 +123,10 @@ def patch_transformers_classes() -> None:
                     )
 
                 # Replace the from_pretrained method
-                setattr(attr, "from_pretrained", patched_from_pretrained)
+                attr.from_pretrained = patched_from_pretrained
                 _patched_classes.add(attr)
                 print(f"Patched {attr_name}")
-        except Exception as e:
+        except Exception:
             # Ignore any errors
             pass
 

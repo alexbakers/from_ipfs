@@ -2,16 +2,12 @@
 Debug script to test the patching mechanism directly.
 """
 
-import inspect
-import sys
-
 
 def main():
     print("Importing from_ipfs...")
     import from_ipfs
 
     print("\nImporting transformers and checking for patching...")
-    import transformers
     from transformers import AutoModel
 
     # Check if patch functions exist

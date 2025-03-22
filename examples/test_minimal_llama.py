@@ -9,7 +9,6 @@ This example requires you to have a GGUF model file locally.
 """
 
 import os
-from pathlib import Path
 
 from llama_cpp import Llama
 

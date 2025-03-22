@@ -4,10 +4,8 @@ Demo script showing how to use from_ipfs with both transformers and llama-cpp-py
 
 import os
 import tempfile
-from pathlib import Path
 
 # Import and apply patches
-import from_ipfs
 
 
 # Test transformers integration
@@ -18,7 +16,7 @@ def test_transformers():
 
         # Verify that the from_pretrained method is patched
         print("Checking if transformers is patched...")
-        method = getattr(AutoModel, "from_pretrained")
+        method = AutoModel.from_pretrained
         if hasattr(method, "__func__"):
             print("✅ Transformers integration working (from_pretrained method is patched)!")
         else:

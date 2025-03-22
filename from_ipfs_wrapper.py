@@ -1,25 +1,26 @@
 #!/usr/bin/env python3
-"""
-Simple wrapper script for from_ipfs to access the config command directly.
-"""
 
-import from_ipfs
+import os
+import sys
 
-# Display the configuration information
-print(f"from_ipfs configuration:")
-print(f"  - Version: {from_ipfs.__version__}")
-print(f"  - Cache directory: {from_ipfs.CACHE_DIR}")
-print(f"  - IPFS gateways:")
-for gateway in from_ipfs.GATEWAYS:
-    print(f"    - {gateway}")
+from from_ipfs.cli import main
+
+# Get the absolute path of the script
+script_path = os.path.abspath(__file__)
+print(f"Script path: {script_path}")
+
+# Get the directory containing the script
+script_dir = os.path.dirname(script_path)
+print(f"Script directory: {script_dir}")
+
+# Add the parent directory to Python path
+sys.path.insert(0, os.path.dirname(script_dir))
+print(f"Added to Python path: {os.path.dirname(script_dir)}")
 
 # Show environment variables
-import os
-
 print("\nEnvironment variables:")
-print(
-    f"  - FROM_IPFS_CACHE: {'Set to ' + os.environ.get('FROM_IPFS_CACHE') if 'FROM_IPFS_CACHE' in os.environ else 'Not set (using default)'}"
-)
-print(
-    f"  - FROM_IPFS_GATEWAYS: {'Set to ' + os.environ.get('FROM_IPFS_GATEWAYS') if 'FROM_IPFS_GATEWAYS' in os.environ else 'Not set (using default)'}"
-)
+for key, value in os.environ.items():
+    print(f"{key}={value}")
+
+if __name__ == "__main__":
+    sys.exit(main())

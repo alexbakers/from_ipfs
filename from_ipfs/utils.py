@@ -6,10 +6,7 @@ import os
 import re
 import shutil
 import subprocess
-import tempfile
-import time
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import List, Optional
 from urllib.parse import urlparse
 
 import requests
@@ -240,12 +237,11 @@ def push_to_ipfs(local_path: str) -> str:
         str: The IPFS CID
     """
     try:
-        # Check if w3 is installed
         subprocess.run(["w3", "--version"], check=True, capture_output=True)
-    except (subprocess.SubprocessError, FileNotFoundError):
+    except (subprocess.SubprocessError, FileNotFoundError) as e:
         raise RuntimeError(
             "w3 CLI tool not found. Install it with: npm install -g @web3-storage/w3cli"
-        )
+        ) from e
 
     # Upload to IPFS
     result = subprocess.run(["w3", "up", local_path], check=True, capture_output=True, text=True)
@@ -303,10 +299,10 @@ def show_config() -> None:
     """
     from . import __version__
 
-    print(f"from_ipfs configuration:")
+    print("from_ipfs configuration:")
     print(f"  - Version: {__version__}")
     print(f"  - Cache directory: {CACHE_DIR}")
-    print(f"  - IPFS gateways:")
+    print("  - IPFS gateways:")
     for gateway in GATEWAYS:
         print(f"    - {gateway}")
 

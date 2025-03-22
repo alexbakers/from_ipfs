@@ -1,7 +1,3 @@
-import os
-import sys
-from unittest.mock import patch
-
 # Import from_ipfs first to ensure patching happens
 import from_ipfs
 
@@ -22,13 +18,11 @@ def test_transformers_patching():
     print("\nTesting transformers patching:")
 
     # Use an IPFS URI
-    ipfs_uri = "ipfs://QmExample123456789"
 
     # Replace download_from_ipfs for testing
     from_ipfs.utils.download_from_ipfs = mock_download_from_ipfs
 
     # Import transformers after patching
-    import transformers
     from transformers import AutoModel
 
     # Check if the method includes download_from_ipfs code
